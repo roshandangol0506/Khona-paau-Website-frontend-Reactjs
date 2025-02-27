@@ -64,14 +64,14 @@ THis Website is in development Phase.
 
 1. Clone the repository:  
    ```sh
-   https://github.com/roshandangol0506/Khona-Paau-Website.git
+   https://github.com/roshandangol0506/Khona-paau-Website-frontend-Reactjs.git
 
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
