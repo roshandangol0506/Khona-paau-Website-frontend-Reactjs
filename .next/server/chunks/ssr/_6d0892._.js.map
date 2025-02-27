@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://D%3A/react-practice/src/app/layout.js"],"sourcesContent":["// context/UserContext.js\r\nimport { createContext, useState, useContext } from \"react\";\r\n\r\nconst UserContext = createContext(null);\r\n\r\nexport const UserProvider = ({ children }) => {\r\n  const [user, setUser] = useState(null);\r\n\r\n  return (\r\n    <UserContext.Provider value={{ user, setUser }}>\r\n      {children}\r\n    </UserContext.Provider>\r\n  );\r\n};\r\n\r\nexport const useUser = () => {\r\n  return useContext(UserContext);\r\n};\r\n"],"names":[],"mappings":"AAAA,yBAAyB;;;;;;AACzB;;;AAEA,MAAM,4BAAc,CAAA,GAAA,qMAAA,CAAA,gBAAa,AAAD,EAAE;AAE3B,MAAM,eAAe,CAAC,EAAE,QAAQ,EAAE;IACvC,MAAM,CAAC,MAAM,QAAQ,GAAG,CAAA,GAAA,qMAAA,CAAA,WAAQ,AAAD,EAAE;IAEjC,qBACE,8OAAC,YAAY,QAAQ;QAAC,OAAO;YAAE;YAAM;QAAQ;kBAC1C;;;;;;AAGP;AAEO,MAAM,UAAU;IACrB,OAAO,CAAA,GAAA,qMAAA,CAAA,aAAU,AAAD,EAAE;AACpB"}},
+    {"offset": {"line": 34, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 45, "column": 0}, "map": {"version":3,"sources":["file://D%3A/react-practice/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = require('../../module.compiled').vendored[\n  'react-rsc'\n].ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":";AAAAA,OAAOC,OAAO,GAAGC,QAAQ,0HAAyBC,QAAQ,CACxD,YACD,CAACC,kBAAkB","ignoreList":[0]}},
+    {"offset": {"line": 47, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
