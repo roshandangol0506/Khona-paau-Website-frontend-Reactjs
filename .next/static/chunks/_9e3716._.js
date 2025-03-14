@@ -37,12 +37,12 @@ const LoginPage = ()=>{
                 })
             });
             if (response.ok) {
+                setSuccess("Successfully Login");
                 router.push("/");
             } else {
                 const errorData = await response.json();
                 alert(errorData.error || "Invalid credentials");
             }
-            setSuccess("Successfully signup");
             setEmail("");
             setPassword("");
         } catch (error) {

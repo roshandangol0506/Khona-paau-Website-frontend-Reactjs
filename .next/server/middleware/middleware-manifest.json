@@ -13,6 +13,10 @@
         {
           "regexp": "/:nextData(_next/data/[^/]{1,})?/uploadteams/:path*{(\\\\.json)}?",
           "originalSource": "/uploadteams/:path*"
+        },
+        {
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/uploadreviews/:path*{(\\\\.json)}?",
+          "originalSource": "/uploadreviews/:path*"
         }
       ],
       "wasm": [],
@@ -20,9 +24,9 @@
       "env": {
         "__NEXT_BUILD_ID": "development",
         "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "DyB3l9JecMy48KMOQpx29ZEYdCKuWU/9uYa6gmpNHl4=",
-        "__NEXT_PREVIEW_MODE_ID": "18b795293bf452f77340a8ec6388c6fd",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "3b4153605d08713d5d31d2987d6bfb217e3e0a21adfac337959d78e0df6e3ef2",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "27b9c69eb533d440f20d72f333e5e570a6de68e8cf894aa97ba76dc7faf7e731"
+        "__NEXT_PREVIEW_MODE_ID": "f00ad1e2d89371ece5627b5445562d71",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "9b5e11a213e83b6bd0cacac9ac6a62b23dfbc07df90c7de8fdca86e1b509faa1",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "4d5b0bf3072815895f4970037802d23f29bc08f14e4f5a7508ca8b8d19565b3b"
       }
     }
   },

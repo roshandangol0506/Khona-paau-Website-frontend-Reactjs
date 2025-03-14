@@ -1,7 +1,8 @@
 {
-  "/login/page": "app/login/page.js",
   "/page": "app/page.js",
   "/_not-found/page": "app/_not-found/page.js",
-  "/uploadteams/page": "app/uploadteams/page.js",
-  "/uploadreview/page": "app/uploadreview/page.js"
+  "/user_login/page": "app/user_login/page.js",
+  "/checkout/page": "app/checkout/page.js",
+  "/mycart/page": "app/mycart/page.js",
+  "/login/page": "app/login/page.js"
 }

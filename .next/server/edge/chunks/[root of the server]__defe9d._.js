@@ -41,8 +41,17 @@ async function middleware(request) {
             throw new Error("Failed to fetch authentication data");
         }
         const authData = await authCheckResponse.json();
-        if (!authData.isAuthenticated) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL("/login", request.url));
+        // Restrict uploadteams to admin (login)
+        if (request.nextUrl.pathname.startsWith("/uploadteams")) {
+            if (!authData.isAuthenticated || authData.role !== "admin") {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL("/login", request.url));
+            }
+        }
+        // Restrict uploadreviews to normal users (user_login)
+        if (request.nextUrl.pathname.startsWith("/uploadreviews")) {
+            if (!authData.isAuthenticated || authData.role !== "user") {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL("/user_login", request.url));
+            }
         }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].next();
     } catch (error) {
@@ -51,7 +60,10 @@ async function middleware(request) {
     }
 }
 const config = {
-    matcher: "/uploadteams/:path*"
+    matcher: [
+        "/uploadteams/:path*",
+        "/uploadreviews/:path*"
+    ]
 };
 }}),
 }]);

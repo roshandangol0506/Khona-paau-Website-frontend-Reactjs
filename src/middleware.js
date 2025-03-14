@@ -19,8 +19,18 @@ export async function middleware(request) {
 
     const authData = await authCheckResponse.json();
 
-    if (!authData.isAuthenticated) {
-      return NextResponse.redirect(new URL("/login", request.url));
+    // Restrict uploadteams to admin (login)
+    if (request.nextUrl.pathname.startsWith("/uploadteams")) {
+      if (!authData.isAuthenticated || authData.role !== "admin") {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
+    }
+
+    // Restrict uploadreviews to normal users (user_login)
+    if (request.nextUrl.pathname.startsWith("/uploadreviews")) {
+      if (!authData.isAuthenticated || authData.role !== "user") {
+        return NextResponse.redirect(new URL("/user_login", request.url));
+      }
     }
 
     return NextResponse.next();
@@ -31,5 +41,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: "/uploadteams/:path*",
+  matcher: ["/uploadteams/:path*", "/uploadreviews/:path*"],
 };

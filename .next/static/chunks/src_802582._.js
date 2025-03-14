@@ -60,7 +60,7 @@ const Home_comp = ()=>{
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "bg-amber-500 text-black p-2 rounded-lg",
-                    children: "Brighten your day with a brighter smile!"
+                    children: "A Product of Khokana Women Group "
                 }, void 0, false, {
                     fileName: "[project]/src/components/Home_comp.jsx",
                     lineNumber: 8,
@@ -77,6 +77,7 @@ const Home_comp = ()=>{
         lineNumber: 5,
         columnNumber: 7
     }, this);
+    "TURBOPACK unreachable";
 };
 _c = Home_comp;
 const __TURBOPACK__default__export__ = Home_comp;
@@ -97,14 +98,20 @@ __turbopack_esm__({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
+"use client";
+;
 ;
 ;
 const NavBar = ({ user })=>{
     _s();
     const [scrolled, setScrolled] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isOpen, setIsOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [userx, setUserx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "NavBar.useEffect": ()=>{
             const handleScroll = {
@@ -118,6 +125,30 @@ const NavBar = ({ user })=>{
             })["NavBar.useEffect"];
         }
     }["NavBar.useEffect"], []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "NavBar.useEffect": ()=>{
+            fetch("http://localhost:8001/api/checkAuth", {
+                method: "GET",
+                credentials: "include"
+            }).then({
+                "NavBar.useEffect": (res)=>res.json()
+            }["NavBar.useEffect"]).then({
+                "NavBar.useEffect": (data)=>{
+                    if (data.isAuthenticated) {
+                        setUserx({
+                            userId: data.userId,
+                            username: data.username,
+                            email: data.email,
+                            profile: data.profile ? data.profile : null
+                        });
+                        setIsLoading(false);
+                    }
+                }
+            }["NavBar.useEffect"]);
+        }
+    }["NavBar.useEffect"], [
+        router
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
             id: "navbar",
@@ -129,17 +160,17 @@ const NavBar = ({ user })=>{
                         href: "/",
                         className: "flex items-center",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                            src: "/views/siddhi_smile.jpg",
+                            src: "/paaulogo.png",
                             alt: "Logo",
                             className: "h-12 w-auto"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Nav_bar.jsx",
-                            lineNumber: 26,
+                            lineNumber: 50,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Nav_bar.jsx",
-                        lineNumber: 25,
+                        lineNumber: 49,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -148,7 +179,7 @@ const NavBar = ({ user })=>{
                         children: "☰"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Nav_bar.jsx",
-                        lineNumber: 28,
+                        lineNumber: 52,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -163,12 +194,12 @@ const NavBar = ({ user })=>{
                                         children: "Home"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Nav_bar.jsx",
-                                        lineNumber: 33,
+                                        lineNumber: 57,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Nav_bar.jsx",
-                                    lineNumber: 33,
+                                    lineNumber: 57,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -178,12 +209,12 @@ const NavBar = ({ user })=>{
                                         children: "About Us"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Nav_bar.jsx",
-                                        lineNumber: 34,
+                                        lineNumber: 58,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Nav_bar.jsx",
-                                    lineNumber: 34,
+                                    lineNumber: 58,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -193,12 +224,12 @@ const NavBar = ({ user })=>{
                                         children: "Team"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Nav_bar.jsx",
-                                        lineNumber: 35,
+                                        lineNumber: 59,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Nav_bar.jsx",
-                                    lineNumber: 35,
+                                    lineNumber: 59,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -208,12 +239,12 @@ const NavBar = ({ user })=>{
                                         children: "Products"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Nav_bar.jsx",
-                                        lineNumber: 36,
+                                        lineNumber: 60,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Nav_bar.jsx",
-                                    lineNumber: 36,
+                                    lineNumber: 60,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -223,38 +254,55 @@ const NavBar = ({ user })=>{
                                         children: "Contact Us"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Nav_bar.jsx",
-                                        lineNumber: 37,
+                                        lineNumber: 61,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Nav_bar.jsx",
-                                    lineNumber: 37,
+                                    lineNumber: 61,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Nav_bar.jsx",
-                            lineNumber: 32,
+                            lineNumber: 56,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Nav_bar.jsx",
-                        lineNumber: 31,
+                        lineNumber: 55,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "relative",
-                        children: user ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                        children: userx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                             children: [
-                                user.profile && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: `/gmailprofile/${user.profile}`,
-                                    alt: "User Logo",
-                                    className: "rounded-full w-10 h-10 cursor-pointer",
-                                    onClick: ()=>setIsOpen(!isOpen)
-                                }, void 0, false, {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "cursor-pointer",
+                                    onClick: ()=>setIsOpen(!isOpen),
+                                    children: [
+                                        userx.profile && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                            src: `http://localhost:8001/gmailprofile/${userx.profile}`,
+                                            alt: "User Logo",
+                                            className: "rounded-full w-10 h-10 cursor-pointer"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Nav_bar.jsx",
+                                            lineNumber: 69,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-white",
+                                            children: userx.username
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Nav_bar.jsx",
+                                            lineNumber: 71,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/src/components/Nav_bar.jsx",
-                                    lineNumber: 44,
-                                    columnNumber: 19
+                                    lineNumber: 67,
+                                    columnNumber: 15
                                 }, this),
                                 isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
                                     className: "absolute right-0 mt-2 w-40 bg-white text-black shadow-md rounded-md",
@@ -266,12 +314,12 @@ const NavBar = ({ user })=>{
                                                 children: "My Cart"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Nav_bar.jsx",
-                                                lineNumber: 48,
+                                                lineNumber: 75,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Nav_bar.jsx",
-                                            lineNumber: 48,
+                                            lineNumber: 75,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -281,23 +329,23 @@ const NavBar = ({ user })=>{
                                                 children: "Checkout"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Nav_bar.jsx",
-                                                lineNumber: 49,
+                                                lineNumber: 76,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Nav_bar.jsx",
-                                            lineNumber: 49,
+                                            lineNumber: 76,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("hr", {}, void 0, false, {
                                                 fileName: "[project]/src/components/Nav_bar.jsx",
-                                                lineNumber: 50,
+                                                lineNumber: 77,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Nav_bar.jsx",
-                                            lineNumber: 50,
+                                            lineNumber: 77,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -307,61 +355,57 @@ const NavBar = ({ user })=>{
                                                 children: "Logout"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Nav_bar.jsx",
-                                                lineNumber: 51,
+                                                lineNumber: 78,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Nav_bar.jsx",
-                                            lineNumber: 51,
+                                            lineNumber: 78,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Nav_bar.jsx",
-                                    lineNumber: 47,
+                                    lineNumber: 74,
                                     columnNumber: 19
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-white",
-                                    children: user.name
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Nav_bar.jsx",
-                                    lineNumber: 54,
-                                    columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/login",
+                            href: "/user_login",
                             className: "text-white hover:text-gray-300",
                             children: "Login"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Nav_bar.jsx",
-                            lineNumber: 57,
+                            lineNumber: 83,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Nav_bar.jsx",
-                        lineNumber: 40,
+                        lineNumber: 64,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Nav_bar.jsx",
-                lineNumber: 24,
+                lineNumber: 48,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/Nav_bar.jsx",
-            lineNumber: 18,
+            lineNumber: 42,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Nav_bar.jsx",
-        lineNumber: 17,
+        lineNumber: 41,
         columnNumber: 5
     }, this);
 };
-_s(NavBar, "Dzqi2xAUv+FtKVqhjxJJjE41njw=");
+_s(NavBar, "2VK09ZiHtgBqAga58oqolD6XK2E=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
 _c = NavBar;
 const __TURBOPACK__default__export__ = NavBar;
 var _c;
@@ -384,11 +428,29 @@ class Get {
     getteams() {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/allteams");
     }
-    getProducts() {
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/allitems");
+    getvisibleProducts() {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/visibleproducts");
+    }
+    getallProducts() {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/allproducts");
     }
     getReviews() {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/allreviews");
+    }
+    getMyCarts() {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/mycart", {
+            withCredentials: true
+        });
+    }
+    getCheckout() {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/checkout", {
+            withCredentials: true
+        });
+    }
+    getuserlogout() {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/user/logout", {
+            withCredentials: true
+        });
     }
 }
 const __TURBOPACK__default__export__ = new Get();
@@ -406,18 +468,25 @@ __turbopack_esm__({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$postService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/services/postService.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 ;
 ;
+;
 const Products = ()=>{
     _s();
     const [products, setproducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [userid, setUserid] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [productid, setProductid] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const fetchProduct = async ()=>{
         try {
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$postService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].getProducts();
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$postService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].getvisibleProducts();
             setproducts(response.data.data);
             setError(null);
         } catch (error) {
@@ -435,18 +504,85 @@ const Products = ()=>{
             fetchProduct();
         }
     }["Products.useEffect"], []);
+    const handleUploadMyCart = async ()=>{
+        if (!productid || !userid) {
+            setError("All fields are required");
+            return;
+        }
+        try {
+            const response = await fetch("http://localhost:8001/uploadmycart", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    service_id: productid,
+                    user_id: userid
+                })
+            });
+            if (!response.ok) throw new Error("Failed to upload My Cart");
+            setSuccess("Successfully uploaded My Cart");
+        } catch (error) {
+            setError("Failed to upload My Cart: " + error.message);
+        }
+    };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "Products.useEffect": ()=>{
+            fetch("http://localhost:8001/api/checkAuth", {
+                method: "GET",
+                credentials: "include"
+            }).then({
+                "Products.useEffect": (res)=>res.json()
+            }["Products.useEffect"]).then({
+                "Products.useEffect": (data)=>{
+                    if (data.isAuthenticated) {
+                        setUser({
+                            id: data.userId,
+                            username: data.username,
+                            email: data.email
+                        });
+                        setIsLoading(false);
+                    }
+                }
+            }["Products.useEffect"]);
+        }
+    }["Products.useEffect"], [
+        router
+    ]);
+    const handlemycart = (items_id)=>{
+        setProductid(items_id);
+        setUserid(user?.id);
+    };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "Products.useEffect": ()=>{
+            if (productid && userid) {
+                handleUploadMyCart();
+            }
+        }
+    }["Products.useEffect"], [
+        productid,
+        userid
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         children: products.map((items, id)=>{
             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 children: [
-                    items.photo,
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                         src: `http://localhost:8001/items/${items.photo}`,
                         alt: "photo",
                         className: "h-24 w-24 object-cover"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Products.jsx",
-                        lineNumber: 32,
+                        lineNumber: 92,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>user ? handlemycart(items._id) : router.push("/login"),
+                        children: "Add to Cart"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Products.jsx",
+                        lineNumber: 93,
                         columnNumber: 13
                     }, this),
                     items.name,
@@ -455,17 +591,21 @@ const Products = ()=>{
                 ]
             }, id, true, {
                 fileName: "[project]/src/components/Products.jsx",
-                lineNumber: 30,
+                lineNumber: 91,
                 columnNumber: 17
             }, this);
         })
     }, void 0, false, {
         fileName: "[project]/src/components/Products.jsx",
-        lineNumber: 29,
+        lineNumber: 90,
         columnNumber: 5
     }, this);
 };
-_s(Products, "FkvX+PK+3M42y13uCoQrd2g4R3I=");
+_s(Products, "DLQZO1jQy7FdxPDnWXqkBMk09r4=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
 _c = Products;
 const __TURBOPACK__default__export__ = Products;
 var _c;

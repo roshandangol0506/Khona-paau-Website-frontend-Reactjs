@@ -5,6 +5,7 @@ import Nav_bar from "@/components/Nav_bar";
 import Products from "@/components/Products";
 import Review from "@/components/Review";
 import Teams from "@/components/Teams";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Teams />
         <About_us />
         <Review />
+        <Footer />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
     </div>

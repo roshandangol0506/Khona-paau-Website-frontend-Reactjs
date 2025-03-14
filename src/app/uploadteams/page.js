@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 const UploadTeamsPage = () => {
   const [name, setName] = useState("");
   const [profession, setProfession] = useState("");
-  const [teamimages, setteamimages] = useState(null); 
+  const [teamimages, setteamimages] = useState(null);
+  const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     fetch("http://localhost:8001/api/checkAuth", {
@@ -22,11 +22,15 @@ const UploadTeamsPage = () => {
         if (!data.isAuthenticated) {
           router.push("/login");
         } else {
+          setUser({
+            userId: data.userId,
+            username: data.username,
+            email: data.email,
+          });
           setIsLoading(false);
         }
       });
   }, [router]);
-
 
   const handleUploadTeam = async () => {
     if (!name || !profession || !teamimages) {
@@ -74,6 +78,9 @@ const UploadTeamsPage = () => {
         onChange={(e) => setteamimages(e.target.files[0])} // Fix here
       />
       <button onClick={handleUploadTeam}>Submit</button>
+      {user?.email}
+      {user?.userId}
+      {user?.username}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
     </div>

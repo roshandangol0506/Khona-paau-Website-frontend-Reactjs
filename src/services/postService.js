@@ -5,12 +5,32 @@ class Get {
     return axios.get("http://localhost:8001/allteams");
   }
 
-  getProducts() {
-    return axios.get("http://localhost:8001/allitems");
+  getvisibleProducts() {
+    return axios.get("http://localhost:8001/visibleproducts");
+  }
+
+  getallProducts() {
+    return axios.get("http://localhost:8001/allproducts");
   }
 
   getReviews() {
     return axios.get("http://localhost:8001/allreviews");
+  }
+  getMyCarts() {
+    return axios.get("http://localhost:8001/mycart", {
+      withCredentials: true,
+    });
+  }
+  getCheckout() {
+    return axios.get("http://localhost:8001/checkout", {
+      withCredentials: true,
+    });
+  }
+
+  getuserlogout() {
+    return axios.get("http://localhost:8001/user/logout", {
+      withCredentials: true,
+    });
   }
 }
 

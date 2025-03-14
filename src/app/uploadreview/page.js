@@ -1,12 +1,36 @@
 "use client";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const UploadReviews = () => {
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [profilepic, setprofilepic] = useState(null);
+  const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:8001/api/checkAuth", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.isAuthenticated) {
+          router.push("/user_login");
+        } else {
+          setUser({
+            userId: data.userId,
+            username: data.username,
+            email: data.email,
+          });
+          setIsLoading(false);
+        }
+      });
+  }, [router]);
 
   const handleUploadReview = async () => {
     if (!name || !review || !profilepic) {
@@ -53,6 +77,7 @@ const UploadReviews = () => {
       <button onClick={handleUploadReview}>Submit</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
+      {user?.email}
     </div>
   );
 };

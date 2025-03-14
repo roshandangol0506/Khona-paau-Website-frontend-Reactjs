@@ -20,12 +20,12 @@ const UploadTeamsPage = ()=>{
     _s();
     const [name, setName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [profession, setProfession] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [teamimages, setteamimages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null); // Store file as an object
+    const [teamimages, setteamimages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [success, setSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    // Authentication check
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "UploadTeamsPage.useEffect": ()=>{
             fetch("http://localhost:8001/api/checkAuth", {
@@ -38,6 +38,11 @@ const UploadTeamsPage = ()=>{
                     if (!data.isAuthenticated) {
                         router.push("/login");
                     } else {
+                        setUser({
+                            userId: data.userId,
+                            username: data.username,
+                            email: data.email
+                        });
                         setIsLoading(false);
                     }
                 }
@@ -46,7 +51,6 @@ const UploadTeamsPage = ()=>{
     }["UploadTeamsPage.useEffect"], [
         router
     ]);
-    // Upload function
     const handleUploadTeam = async ()=>{
         if (!name || !profession || !teamimages) {
             setError("Please fill all fields and select an image.");
@@ -71,7 +75,7 @@ const UploadTeamsPage = ()=>{
         children: "Loading..."
     }, void 0, false, {
         fileName: "[project]/src/app/uploadteams/page.js",
-        lineNumber: 55,
+        lineNumber: 59,
         columnNumber: 25
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -83,7 +87,7 @@ const UploadTeamsPage = ()=>{
                 onChange: (e)=>setName(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadteams/page.js",
-                lineNumber: 59,
+                lineNumber: 63,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -93,7 +97,7 @@ const UploadTeamsPage = ()=>{
                 onChange: (e)=>setProfession(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadteams/page.js",
-                lineNumber: 65,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -102,14 +106,7 @@ const UploadTeamsPage = ()=>{
                 onChange: (e)=>setteamimages(e.target.files[0])
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadteams/page.js",
-                lineNumber: 71,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                children: "ro"
-            }, void 0, false, {
-                fileName: "[project]/src/app/uploadteams/page.js",
-                lineNumber: 76,
+                lineNumber: 75,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -117,9 +114,12 @@ const UploadTeamsPage = ()=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadteams/page.js",
-                lineNumber: 77,
+                lineNumber: 80,
                 columnNumber: 7
             }, this),
+            user?.email,
+            user?.userId,
+            user?.username,
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 style: {
                     color: "red"
@@ -127,7 +127,7 @@ const UploadTeamsPage = ()=>{
                 children: error
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadteams/page.js",
-                lineNumber: 78,
+                lineNumber: 84,
                 columnNumber: 17
             }, this),
             success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -137,17 +137,17 @@ const UploadTeamsPage = ()=>{
                 children: success
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadteams/page.js",
-                lineNumber: 79,
+                lineNumber: 85,
                 columnNumber: 19
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/uploadteams/page.js",
-        lineNumber: 58,
+        lineNumber: 62,
         columnNumber: 5
     }, this);
 };
-_s(UploadTeamsPage, "LcKmQwmpUmXn+k6dx63XyH0bO1Y=", false, function() {
+_s(UploadTeamsPage, "AdjRLykQWhHcztfwdpK6Ftf+9Fk=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
