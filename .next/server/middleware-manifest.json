@@ -17,6 +17,10 @@
         {
           "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/uploadreviews(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$",
           "originalSource": "/uploadreviews/:path*"
+        },
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/uploadproducts(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$",
+          "originalSource": "/uploadproducts/:path*"
         }
       ],
       "wasm": [],
@@ -24,9 +28,9 @@
       "env": {
         "__NEXT_BUILD_ID": "development",
         "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "DyB3l9JecMy48KMOQpx29ZEYdCKuWU/9uYa6gmpNHl4=",
-        "__NEXT_PREVIEW_MODE_ID": "f00ad1e2d89371ece5627b5445562d71",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "9b5e11a213e83b6bd0cacac9ac6a62b23dfbc07df90c7de8fdca86e1b509faa1",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "4d5b0bf3072815895f4970037802d23f29bc08f14e4f5a7508ca8b8d19565b3b"
+        "__NEXT_PREVIEW_MODE_ID": "59ef4c593f7f5478012f3b065c3a2069",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "ea0fabe623672d435e5402e967a1e35952c42cc8f3115791b07e7fdb03627a24",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "380e5c1e7350aa27b4c8a3d6f586317844d11889e28bddf472a77a0b4e3cb3ae"
       }
     }
   },

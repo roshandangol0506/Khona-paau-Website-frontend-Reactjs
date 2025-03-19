@@ -32,6 +32,10 @@ class Get {
       withCredentials: true,
     });
   }
+
+  getbestselling() {
+    return axios.get("http://localhost:8001/bestselling", {});
+  }
 }
 
 export default new Get();

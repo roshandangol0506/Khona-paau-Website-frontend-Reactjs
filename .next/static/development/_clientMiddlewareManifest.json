@@ -6,5 +6,9 @@
   {
     "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/uploadreviews(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$",
     "originalSource": "/uploadreviews/:path*"
+  },
+  {
+    "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?\\/uploadproducts(?:\\/((?:[^\\/#\\?]+?)(?:\\/(?:[^\\/#\\?]+?))*))?(\\\\.json)?[\\/#\\?]?$",
+    "originalSource": "/uploadproducts/:path*"
   }
 ]

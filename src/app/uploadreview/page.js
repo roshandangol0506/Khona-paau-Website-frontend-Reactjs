@@ -20,7 +20,7 @@ const UploadReviews = () => {
       .then((res) => res.json())
       .then((data) => {
         if (!data.isAuthenticated) {
-          router.push("/user_login");
+          router.push("/login");
         } else {
           setUser({
             userId: data.userId,

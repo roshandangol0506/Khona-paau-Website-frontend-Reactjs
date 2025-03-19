@@ -47,12 +47,22 @@ async function middleware(request) {
                 return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL("/login", request.url));
             }
         }
-        // Restrict uploadreviews to normal users (user_login)
-        if (request.nextUrl.pathname.startsWith("/uploadreviews")) {
-            if (!authData.isAuthenticated || authData.role !== "user") {
-                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL("/user_login", request.url));
+        if (request.nextUrl.pathname.startsWith("/uploadproducts")) {
+            if (!authData.isAuthenticated || authData.role !== "admin") {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL("/login", request.url));
             }
         }
+        if (request.nextUrl.pathname.startsWith("/uploadreviews")) {
+            if (!authData.isAuthenticated || authData.role !== "admin") {
+                return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].redirect(new URL("/login", request.url));
+            }
+        }
+        // Restrict uploadreviews to normal users (user_login)
+        // if (request.nextUrl.pathname.startsWith("/uploadreviews")) {
+        //   if (!authData.isAuthenticated || authData.role !== "user") {
+        //     return NextResponse.redirect(new URL("/user_login", request.url));
+        //   }
+        // }
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$web$2f$spec$2d$extension$2f$response$2e$js__$5b$middleware$5d$__$28$ecmascript$29$__["NextResponse"].next();
     } catch (error) {
         console.error("Error during fetch:", error);
@@ -62,7 +72,8 @@ async function middleware(request) {
 const config = {
     matcher: [
         "/uploadteams/:path*",
-        "/uploadreviews/:path*"
+        "/uploadreviews/:path*",
+        "/uploadproducts/:path*"
     ]
 };
 }}),

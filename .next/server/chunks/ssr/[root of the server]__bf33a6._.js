@@ -124,6 +124,16 @@ class Get {
             withCredentials: true
         });
     }
+    getCheckout() {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/checkout", {
+            withCredentials: true
+        });
+    }
+    getuserlogout() {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8001/user/logout", {
+            withCredentials: true
+        });
+    }
 }
 const __TURBOPACK__default__export__ = new Get();
 }}),
@@ -151,6 +161,25 @@ const page = ()=>{
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [success, setSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [products, setproducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        fetch("http://localhost:8001/api/checkAuth", {
+            method: "GET",
+            credentials: "include"
+        }).then((res)=>res.json()).then((data)=>{
+            if (!data.isAuthenticated) {
+                router.push("/login");
+            } else {
+                setUser({
+                    userId: data.userId,
+                    username: data.username,
+                    email: data.email
+                });
+                setIsLoading(false);
+            }
+        });
+    }, [
+        router
+    ]);
     const handleUploadProduct = async ()=>{
         if (!name || !subtitle || !amount || !description || !photo) {
             setError("All fields are required");
@@ -250,7 +279,7 @@ const page = ()=>{
                 onChange: (e)=>setName(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 120,
+                lineNumber: 140,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -260,7 +289,7 @@ const page = ()=>{
                 onChange: (e)=>setSubtitle(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 126,
+                lineNumber: 146,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -270,7 +299,7 @@ const page = ()=>{
                 onChange: (e)=>setDescription(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 132,
+                lineNumber: 152,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -280,7 +309,7 @@ const page = ()=>{
                 onChange: (e)=>setAmount(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 138,
+                lineNumber: 158,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -289,7 +318,7 @@ const page = ()=>{
                 onChange: (e)=>setPhoto(e.target.files[0])
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 144,
+                lineNumber: 164,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -297,7 +326,7 @@ const page = ()=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 149,
+                lineNumber: 169,
                 columnNumber: 7
             }, this),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -307,7 +336,7 @@ const page = ()=>{
                 children: error
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 150,
+                lineNumber: 170,
                 columnNumber: 17
             }, this),
             success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -317,7 +346,7 @@ const page = ()=>{
                 children: success
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 151,
+                lineNumber: 171,
                 columnNumber: 19
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -331,7 +360,7 @@ const page = ()=>{
                                 className: "h-24 w-24 object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/uploadproducts/page.js",
-                                lineNumber: 157,
+                                lineNumber: 177,
                                 columnNumber: 15
                             }, this),
                             items.name,
@@ -344,37 +373,51 @@ const page = ()=>{
                                     children: "Disable"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/uploadproducts/page.js",
-                                    lineNumber: 168,
+                                    lineNumber: 188,
                                     columnNumber: 19
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>handleEnable(items._id),
                                     children: "Enable"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/uploadproducts/page.js",
-                                    lineNumber: 172,
+                                    lineNumber: 192,
                                     columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/uploadproducts/page.js",
-                                lineNumber: 166,
+                                lineNumber: 186,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>handlebestSelling(items._id),
+                                    children: "Best Selling"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/uploadproducts/page.js",
+                                    lineNumber: 198,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/uploadproducts/page.js",
+                                lineNumber: 197,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, id, true, {
                         fileName: "[project]/src/app/uploadproducts/page.js",
-                        lineNumber: 156,
+                        lineNumber: 176,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 153,
+                lineNumber: 173,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/uploadproducts/page.js",
-        lineNumber: 119,
+        lineNumber: 139,
         columnNumber: 5
     }, this);
 };

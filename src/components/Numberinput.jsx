@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const NumberInput = ({ baseAmount, onTotalChange }) => {
   const [value, setValue] = useState(1);
+  
 
   const handleValueChange = (newValue) => {
     const total = baseAmount * newValue;
@@ -30,6 +31,7 @@ const NumberInput = ({ baseAmount, onTotalChange }) => {
       </div>
 
       <Input type="number" className="w-24 text-center bg-gray-100" value={baseAmount * value} readOnly />
+      <Button >Delete</Button>
     </div>
   );
 };

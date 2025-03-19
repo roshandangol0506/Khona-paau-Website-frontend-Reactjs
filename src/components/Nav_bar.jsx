@@ -8,6 +8,8 @@ const NavBar = ({ user }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [userx, setUserx] = useState(null);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 

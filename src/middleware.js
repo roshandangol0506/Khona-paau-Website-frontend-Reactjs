@@ -26,12 +26,24 @@ export async function middleware(request) {
       }
     }
 
-    // Restrict uploadreviews to normal users (user_login)
-    if (request.nextUrl.pathname.startsWith("/uploadreviews")) {
-      if (!authData.isAuthenticated || authData.role !== "user") {
-        return NextResponse.redirect(new URL("/user_login", request.url));
+    if (request.nextUrl.pathname.startsWith("/uploadproducts")) {
+      if (!authData.isAuthenticated || authData.role !== "admin") {
+        return NextResponse.redirect(new URL("/login", request.url));
       }
     }
+
+    if (request.nextUrl.pathname.startsWith("/uploadreviews")) {
+      if (!authData.isAuthenticated || authData.role !== "admin") {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
+    }
+
+    // Restrict uploadreviews to normal users (user_login)
+    // if (request.nextUrl.pathname.startsWith("/uploadreviews")) {
+    //   if (!authData.isAuthenticated || authData.role !== "user") {
+    //     return NextResponse.redirect(new URL("/user_login", request.url));
+    //   }
+    // }
 
     return NextResponse.next();
   } catch (error) {
@@ -41,5 +53,9 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/uploadteams/:path*", "/uploadreviews/:path*"],
+  matcher: [
+    "/uploadteams/:path*",
+    "/uploadreviews/:path*",
+    "/uploadproducts/:path*",
+  ],
 };

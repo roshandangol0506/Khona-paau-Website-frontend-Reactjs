@@ -1,8 +1,12 @@
 {
   "/page": "app/page.js",
+  "/v0/page": "app/v0/page.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/uploadproducts/page": "app/uploadproducts/page.js",
+  "/login/page": "app/login/page.js",
+  "/uploadreview/page": "app/uploadreview/page.js",
   "/user_login/page": "app/user_login/page.js",
-  "/checkout/page": "app/checkout/page.js",
+  "/uploadteams/page": "app/uploadteams/page.js",
   "/mycart/page": "app/mycart/page.js",
-  "/login/page": "app/login/page.js"
+  "/checkout/page": "app/checkout/page.js"
 }

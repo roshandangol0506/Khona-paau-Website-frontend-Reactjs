@@ -1,9 +1,11 @@
 "use client";
 import postService from "@/services/postService";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const page = () => {
   const [name, setName] = useState("");
+  const [user, setUser] = useState(null);
   const [subtitle, setSubtitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState("");
@@ -11,6 +13,28 @@ const page = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [products, setproducts] = useState([]);
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:8001/api/checkAuth", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.isAuthenticated) {
+          router.push("/login");
+        } else {
+          setUser({
+            userId: data.userId,
+            username: data.username,
+            email: data.email,
+          });
+          setIsLoading(false);
+        }
+      });
+  }, [router]);
 
   const handleUploadProduct = async () => {
     if (!name || !subtitle || !amount || !description || !photo) {
@@ -76,7 +100,6 @@ const page = () => {
         throw new Error("Failed to enable product");
       }
 
-      // Instantly update the local state
       setproducts((prevProducts) =>
         prevProducts.map((product) =>
           product._id === id ? { ...product, visible: "on" } : product
@@ -86,6 +109,36 @@ const page = () => {
       setSuccess("Product Enabled");
     } catch (error) {
       setError("Failed to enable product");
+    }
+  };
+
+  const handlebestSelling = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:8001/bestselling/${id}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to enable product");
+      }
+
+      setproducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product._id === id
+            ? {
+                ...product,
+                best_selling:
+                  product.best_selling === "true" ? "false" : "true",
+              }
+            : product
+        )
+      );
+
+      setSuccess("Best Selling updated");
+    } catch (error) {
+      setError("Failed to update Best Selling");
     }
   };
 
@@ -173,6 +226,12 @@ const page = () => {
                     Enable
                   </button>
                 )}
+              </div>
+              {items.best_selling}
+              <div>
+                <button onClick={() => handlebestSelling(items._id)}>
+                  Best Selling
+                </button>
               </div>
             </div>
           );

@@ -1,11 +1,11 @@
 "use client";
-import About_us from "@/components/About_us";
 import Home_comp from "@/components/Home_comp";
 import Nav_bar from "@/components/Nav_bar";
 import Products from "@/components/Products";
 import Review from "@/components/Review";
 import Teams from "@/components/Teams";
 import Footer from "@/components/Footer";
+import About_us from "@/components/About_us";
 
 export default function Home() {
   return (

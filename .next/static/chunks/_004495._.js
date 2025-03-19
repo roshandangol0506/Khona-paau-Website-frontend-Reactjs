@@ -36,7 +36,7 @@ const UploadReviews = ()=>{
             }["UploadReviews.useEffect"]).then({
                 "UploadReviews.useEffect": (data)=>{
                     if (!data.isAuthenticated) {
-                        router.push("/user_login");
+                        router.push("/login");
                     } else {
                         setUser({
                             userId: data.userId,
