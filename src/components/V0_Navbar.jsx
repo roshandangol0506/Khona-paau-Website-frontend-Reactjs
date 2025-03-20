@@ -88,7 +88,7 @@ export default function Navbar() {
           <Link href="/wishlist" className="text-sm font-medium transition-colors hover:text-primary">
             WISHLIST (0)
           </Link>
-          <Link href="/mycart" className="text-sm font-medium transition-colors hover:text-primary">
+          <Link href="/v0_mycart" className="text-sm font-medium transition-colors hover:text-primary">
           CART ({isLoaded ? cartCount : 0})
           </Link>
           <DropdownMenu>

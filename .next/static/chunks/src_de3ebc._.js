@@ -15,7 +15,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var _s = __turbopack_refresh__.signature(), _s1 = __turbopack_refresh__.signature();
 "use client";
 ;
-// Sample cart data - in a real app, this would come from an API or localStorage
+// Sample cart data
 const initialCartItems = [
     {
         id: 1,
@@ -36,7 +36,16 @@ const initialCartItems = [
         size: "L"
     }
 ];
-const CartContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])(undefined);
+// Create context with default values to avoid the undefined check
+const CartContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])({
+    cartItems: [],
+    cartCount: 0,
+    addToCart: ()=>{},
+    removeFromCart: ()=>{},
+    updateQuantity: ()=>{},
+    clearCart: ()=>{},
+    isLoaded: false
+});
 function CartProvider({ children }) {
     _s();
     const [cartItems, setCartItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -102,7 +111,7 @@ function CartProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/src/context/Cart_context.jsx",
-        lineNumber: 78,
+        lineNumber: 87,
         columnNumber: 5
     }, this);
 }
@@ -110,13 +119,9 @@ _s(CartProvider, "EmcMIczcJ63m++4irYFgmlITwYc=");
 _c = CartProvider;
 function useCart() {
     _s1();
-    const context = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useContext"])(CartContext);
-    if (context === undefined) {
-        throw new Error("useCart must be used within a CartProvider");
-    }
-    return context;
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useContext"])(CartContext);
 }
-_s1(useCart, "b9L3QQ+jgeyIrH0NfHrJ8nn7VMU=");
+_s1(useCart, "gDsCjeeItUuvgOWf1v4qoK9RF6k=");
 var _c;
 __turbopack_refresh__.register(_c, "CartProvider");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

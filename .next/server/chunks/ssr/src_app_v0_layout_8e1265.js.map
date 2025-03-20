@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://D%3A/e-commerce/frontend/src/app/v0/layout.js"],"sourcesContent":["import { Inter } from \"next/font/google\";\r\nimport \"../globals.css\";\r\nimport { ThemeProvider } from \"@/components/V0_theme_provider\";\r\nimport { CartProvider } from \"@/context/Cart_context\";\r\n\r\nconst inter = Inter({ subsets: [\"latin\"] });\r\n\r\nexport const metadata = {\r\n  title: \"Khokan Paau - Fashion Store\",\r\n  description: \"Discover the latest fashion collections\",\r\n};\r\n\r\nexport default function RootLayout({ children }) {\r\n  return (\r\n    <html lang=\"en\">\r\n      <body className={inter.className}>\r\n        <ThemeProvider\r\n          attribute=\"class\"\r\n          defaultTheme=\"light\"\r\n          enableSystem\r\n          disableTransitionOnChange\r\n        >\r\n          <CartProvider>{children}</CartProvider>\r\n        </ThemeProvider>\r\n      </body>\r\n    </html>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;;AAEA;AACA;;;;;;AAIO,MAAM,WAAW;IACtB,OAAO;IACP,aAAa;AACf;AAEe,SAAS,WAAW,EAAE,QAAQ,EAAE;IAC7C,qBACE,8OAAC;QAAK,MAAK;kBACT,cAAA,8OAAC;YAAK,WAAW,yIAAA,CAAA,UAAK,CAAC,SAAS;sBAC9B,cAAA,8OAAC,uIAAA,CAAA,gBAAa;gBACZ,WAAU;gBACV,cAAa;gBACb,YAAY;gBACZ,yBAAyB;0BAEzB,cAAA,8OAAC,+HAAA,CAAA,eAAY;8BAAE;;;;;;;;;;;;;;;;;;;;;AAKzB"}},
+    {"offset": {"line": 57, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

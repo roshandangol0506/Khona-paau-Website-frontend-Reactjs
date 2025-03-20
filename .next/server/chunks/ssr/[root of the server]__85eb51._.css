@@ -635,12 +635,12 @@ body {
   margin-left: .5rem;
 }
 
-.mr-2 {
-  margin-right: .5rem;
+.ml-auto {
+  margin-left: auto;
 }
 
-.mt-1 {
-  margin-top: .25rem;
+.mr-2 {
+  margin-right: .5rem;
 }
 
 .mt-12 {
@@ -661,10 +661,6 @@ body {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.ml-auto {
-  margin-left: auto;
 }
 
 .block {
@@ -711,6 +707,10 @@ body {
   height: 4rem;
 }
 
+.h-2 {
+  height: .5rem;
+}
+
 .h-2\.5 {
   height: .625rem;
 }
@@ -743,12 +743,12 @@ body {
   height: 1.75rem;
 }
 
-.h-8 {
-  height: 2rem;
-}
-
 .h-9 {
   height: 2.25rem;
+}
+
+.h-\[1px\] {
+  height: 1px;
 }
 
 .h-\[350px\] {
@@ -783,10 +783,6 @@ body {
   height: 100vh;
 }
 
-.h-2 {
-  height: .5rem;
-}
-
 .max-h-96 {
   max-height: 24rem;
 }
@@ -805,6 +801,10 @@ body {
 
 .w-16 {
   width: 4rem;
+}
+
+.w-2 {
+  width: .5rem;
 }
 
 .w-2\.5 {
@@ -847,12 +847,12 @@ body {
   width: 18rem;
 }
 
-.w-8 {
-  width: 2rem;
-}
-
 .w-9 {
   width: 2.25rem;
+}
+
+.w-\[1px\] {
+  width: 1px;
 }
 
 .w-auto {
@@ -865,10 +865,6 @@ body {
 
 .w-px {
   width: 1px;
-}
-
-.w-2 {
-  width: .5rem;
 }
 
 .min-w-\[300px\] {
@@ -1245,14 +1241,6 @@ body {
   background-color: hsl(var(--muted) / .2);
 }
 
-.bg-muted\/30 {
-  background-color: hsl(var(--muted) / .3);
-}
-
-.bg-muted\/40 {
-  background-color: hsl(var(--muted) / .4);
-}
-
 .bg-popover {
   background-color: hsl(var(--popover));
 }
@@ -1304,12 +1292,12 @@ body {
   background-position: center;
 }
 
-.fill-yellow-400 {
-  fill: #facc15;
-}
-
 .fill-current {
   fill: currentColor;
+}
+
+.fill-yellow-400 {
+  fill: #facc15;
 }
 
 .object-contain {
@@ -1357,6 +1345,11 @@ body {
   padding-right: 2.5rem;
 }
 
+.px-2 {
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+
 .px-3 {
   padding-left: .75rem;
   padding-right: .75rem;
@@ -1397,6 +1390,11 @@ body {
   padding-bottom: .5rem;
 }
 
+.py-28 {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
 .py-3 {
   padding-top: .75rem;
   padding-bottom: .75rem;
@@ -1405,11 +1403,6 @@ body {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-.px-2 {
-  padding-left: .5rem;
-  padding-right: .5rem;
 }
 
 .pb-4 {
@@ -1440,20 +1433,12 @@ body {
   padding-top: 4rem;
 }
 
-.pt-6 {
-  padding-top: 1.5rem;
-}
-
 .pt-8 {
   padding-top: 2rem;
 }
 
 .text-center {
   text-align: center;
-}
-
-.font-sans {
-  font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
 .font-serif {
@@ -1560,11 +1545,6 @@ body {
 
 .text-destructive-foreground {
   color: hsl(var(--destructive-foreground));
-}
-
-.text-gray-300 {
-  --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
 }
 
 .text-gray-400 {
@@ -2177,11 +2157,6 @@ body {
   .md\:py-24 {
     padding-top: 6rem;
     padding-bottom: 6rem;
-  }
-
-  .md\:py-8 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
   }
 
   .md\:text-4xl {

@@ -1,155 +1,120 @@
-"use client"
+"use client";// Import cart context
+import postService from "@/services/postService";
+import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import NumberInput from "./Numberinput";
+import Checkout from "./Checkout_button";
+import { useCart } from "@/context/Cart_context";
 
-import Link from "next/link"
-import Image from "next/image"
-import { Minus, Plus, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-import { useCart } from "@/context/Cart_context"
+const MyCart = () => {
+  const { mycart, setmycart } = useCart(); 
+  const [selectedItems, setSelectedItems] = useState({});
+  const [itemQuantities, setItemQuantities] = useState({});
+  const [location, setlocation] = useState("");
+  const [phoneno, setphoneno] = useState("");
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
-export default function CartPage() {
-  const { cartItems, removeFromCart, updateQuantity, isLoaded } = useCart()
+  const handleCheckboxChange = (serviceId, baseAmount) => (event) => {
+    setSelectedItems((prev) => {
+      const newSelectedItems = { ...prev };
+      if (event.target.checked) {
+        const existingQuantity = itemQuantities[serviceId] || 1; 
+        newSelectedItems[serviceId] = baseAmount * existingQuantity;
+        setItemQuantities((prevQuantities) => ({
+          ...prevQuantities,
+          [serviceId]: existingQuantity, 
+        }));
+      } else {
+        delete newSelectedItems[serviceId];
+      }
+      return newSelectedItems;
+    });
+  };
 
-  // Calculate cart totals
-  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
-  const shipping = 12.99
-  const total = subtotal + shipping
+  const updateTotalForItem = (serviceId, totalPrice, quantity) => {
+    setItemQuantities((prev) => ({ ...prev, [serviceId]: quantity }));
+    setSelectedItems((prev) => {
+      if (prev[serviceId] !== undefined) {
+        return { ...prev, [serviceId]: totalPrice };
+      }
+      return prev;
+    });
+  };
 
-  if (!isLoaded) {
-    return (
-      <main className="min-h-screen py-12">
-        <div className="container mx-auto px-4 text-center">Loading cart...</div>
-      </main>
-    )
-  }
+  const handleDeletefromCart = async (serviceId) => {
+    if (!serviceId) {
+      setError("No items are selected");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:8001/deletefromcart", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ serviceId }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        setSuccess("Successfully deleted product");
+        setmycart((prev) => prev.filter((item) => item.service_id._id !== serviceId));
+      } else {
+        setError(`Failed to delete product: ${data.message}`);
+      }
+    } catch (error) {
+      setError(`Failed to delete product: ${error.message}`);
+    }
+  };
+
+  const totalAmount = Object.values(selectedItems).reduce((acc, curr) => acc + curr, 0);
 
   return (
-    <main className="min-h-screen py-12">
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-serif mb-8">Shopping Cart</h1>
+    <div>
+      <h1>My Cart</h1>
+      {mycart?.length > 0 ? <p>cha</p>: <p>Khali cha</p>}
+      {mycart?.map((items, id) => (
+        <div key={id} className="flex items-center space-x-4">
+          <img
+            src={`http://localhost:8001/items/${items.service_id.photo}`}
+            alt="photo"
+            className="h-24 w-24 object-cover"
+          />
+          <div>
+            <h2>{items.service_id.name}</h2>
+            <p>Price: {items.service_id.amount}</p>
 
-        {cartItems.length > 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <div className="hidden md:grid md:grid-cols-6 text-sm font-medium text-muted-foreground mb-4">
-                  <div className="md:col-span-3">Product</div>
-                  <div className="text-center">Price</div>
-                  <div className="text-center">Quantity</div>
-                  <div className="text-right">Total</div>
-                </div>
-                <Separator className="mb-6 hidden md:block" />
-
-                {cartItems.map((item) => (
-                  <div key={item.id} className="mb-6">
-                    <div className="grid grid-cols-1 md:grid-cols-6 gap-4 items-center">
-                      <div className="md:col-span-3 flex items-center gap-4">
-                        <div className="relative h-24 w-20 rounded overflow-hidden bg-muted/20 flex-shrink-0">
-                          <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover" />
-                        </div>
-                        <div>
-                          <h3 className="font-medium">{item.name}</h3>
-                          <p className="text-sm text-muted-foreground">Color: {item.color}</p>
-                          <p className="text-sm text-muted-foreground">Size: {item.size}</p>
-                          <button
-                            className="text-sm text-red-500 flex items-center gap-1 mt-2 md:hidden"
-                            onClick={() => removeFromCart(item.id)}
-                          >
-                            <Trash2 className="h-4 w-4" /> Remove
-                          </button>
-                        </div>
-                      </div>
-                      <div className="text-center md:text-center">${item.price.toFixed(2)}</div>
-                      <div className="flex items-center justify-center">
-                        <div className="flex border rounded">
-                          <button
-                            className="px-3 py-1 border-r"
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            disabled={item.quantity <= 1}
-                          >
-                            <Minus className="h-4 w-4" />
-                          </button>
-                          <span className="px-4 py-1">{item.quantity}</span>
-                          <button
-                            className="px-3 py-1 border-l"
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          >
-                            <Plus className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between md:justify-end">
-                        <span className="md:hidden">Total:</span>
-                        <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
-                      </div>
-                    </div>
-                    <div className="flex justify-end mt-2 hidden md:flex">
-                      <button
-                        className="text-sm text-red-500 flex items-center gap-1"
-                        onClick={() => removeFromCart(item.id)}
-                      >
-                        <Trash2 className="h-4 w-4" /> Remove
-                      </button>
-                    </div>
-                    <Separator className="my-6" />
-                  </div>
-                ))}
-
-                <div className="flex justify-between items-center">
-                  <Link href="/shop" className="text-sm font-medium underline">
-                    Continue Shopping
-                  </Link>
-                  <Button variant="outline">Update Cart</Button>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-medium mb-4">Order Summary</h2>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Shipping</span>
-                    <span>${shipping.toFixed(2)}</span>
-                  </div>
-                  <Separator className="my-3" />
-                  <div className="flex justify-between font-medium text-base">
-                    <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
-                  </div>
-                </div>
-
-                <div className="mt-6 space-y-4">
-                  <div>
-                    <label htmlFor="coupon" className="text-sm font-medium mb-1 block">
-                      Coupon Code
-                    </label>
-                    <div className="flex gap-2">
-                      <Input id="coupon" placeholder="Enter coupon" />
-                      <Button variant="outline">Apply</Button>
-                    </div>
-                  </div>
-                  <Button className="w-full bg-black hover:bg-gray-800 text-white">Proceed to Checkout</Button>
-                </div>
-              </div>
-            </div>
+            <NumberInput
+              baseAmount={items.service_id.amount}
+              onTotalChange={(total, quantity) => updateTotalForItem(items.service_id._id, total, quantity)}
+            />
+            <Button onClick={() => handleDeletefromCart(items.service_id._id)}>Delete</Button>
           </div>
-        ) : (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-medium mb-4">Your cart is empty</h2>
-            <p className="text-muted-foreground mb-8">Looks like you haven't added any items to your cart yet.</p>
-            <Link href="/shop">
-              <Button className="bg-black hover:bg-gray-800 text-white">Continue Shopping</Button>
-            </Link>
-          </div>
-        )}
-      </div>
-    </main>
-  )
-}
 
+          <input
+            type="checkbox"
+            name="selecttobuy"
+            onChange={handleCheckboxChange(items.service_id._id, items.service_id.amount)}
+          />
+        </div>
+      ))}
+
+      <Input
+        type="number"
+        className="w-24 text-center bg-gray-100 mt-4"
+        value={totalAmount}
+        readOnly
+      />
+
+      <Checkout mycart={mycart} setmycart={setmycart} selectedItems={selectedItems} itemQuantities={itemQuantities} location={location} phoneno={phoneno} />
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </div>
+  );
+};
+
+export default MyCart;
