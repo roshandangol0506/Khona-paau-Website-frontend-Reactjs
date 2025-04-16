@@ -6,8 +6,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import postService from "@/services/postService"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { useCart } from "@/context/Cart_context"
 
 export default function ProductCarousel() {
+  const {mycart, setmycart}= useCart()
   const [currentIndex, setCurrentIndex] = useState(0)
   const containerRef = useRef(null)
   const [products, setproducts] = useState([]);
@@ -20,80 +23,93 @@ export default function ProductCarousel() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
       
-          const fetchProduct = async () => {
-          try {
-              const response = await postService.getvisibleProducts();
-              setproducts(response.data.data);
-              setError(null); 
-          } catch (error) {
-              if (error.response) {
-              setError(`Server Error: ${error.response.status} - ${error.response.data.message || "Something went wrong"}`);
-              } else if (error.request) {
-              setError("Network error: Unable to reach the server. Please try again.");
-              } else {
-              setError("An unexpected error occurred.");
-              }
-          }
-          };
-      
-          useEffect(() => {
-          fetchProduct();
-          }, []);
-  
-  
-          const handleUploadMyCart = async () => {
-              if (!productid || !userid) {
-                setError("All fields are required");
-                return;
-              }
-            
-              try {
-                const response = await fetch("http://localhost:8001/uploadmycart", {
-                  method: "POST",
-                  credentials: "include",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ service_id: productid, user_id: userid }),
-                });
-            
-                if (!response.ok) throw new Error("Failed to upload My Cart");
-            
-                setSuccess("Successfully uploaded My Cart");
-              } catch (error) {
-                setError("Failed to upload My Cart: " + error.message);
-              }
-            };
-            
-  
-          
-  
-            useEffect(() => {
-              fetch("http://localhost:8001/api/checkAuth", {
-                method: "GET",
-                credentials: "include",
-              })
-                .then((res) => res.json())
-                .then((data) => {
-                  if (data.isAuthenticated) {
-                    setUser({
-                      id: data.userId,
-                      username: data.username,
-                      email: data.email,
-                    });
-                    setIsLoading(false);
-                  }
-                });
-            }, [router]);
-  
-            const handlemycart=(items_id)=>{
-              setProductid(items_id) 
-              setUserid(user?.id)
-            }
-  
-            useEffect(() => {
-              if (productid && userid) {
-                handleUploadMyCart();
-              }
-            }, [productid, userid]);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await postService.getvisibleProducts();
+      setproducts(response.data.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:8001/api/checkAuth", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.isAuthenticated) {
+          setUser({
+            id: data.userId,
+            username: data.username,
+            email: data.email,
+          });
+        }
+      });
+  }, [router]);
+
+  const handleAddToCart = async (productId) => {
+    if (!user) {
+      router.push("/user_login");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8001/uploadmycart", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ service_id: productId, user_id: user.id }),
+      });
+
+      if (!response.ok) throw new Error("Failed to upload My Cart");
+
+      // ✅ Update Cart State Immediately
+      setmycart((prevCart) => [...prevCart, { service_id: productId, user_id: user.id }]);
+
+      toast("Product added to cart", {
+        description: new Date().toLocaleString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        }),
+        action: {
+          label: "Undo",
+          onClick: () => handleDeleteFromCart(productId, user.id),
+        },
+      });
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+
+  const handleDeleteFromCart = async (serviceId, userId) => {
+    try {
+      const response = await fetch("http://localhost:8001/deletefromcart", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ serviceId, userId }),
+      });
+
+      if (!response.ok) throw new Error("Failed to delete product");
+
+      // ✅ Remove item from Cart State
+      setmycart((prevCart) => prevCart.filter((item) => item.service_id !== serviceId));
+    } catch (error) {
+      console.error("Error deleting from cart:", error);
+    }
+  };
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, maxIndex))
@@ -153,7 +169,7 @@ export default function ProductCarousel() {
             <div className="mt-4">
               <h3 className="text-lg font-medium">{product.name}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{product.subtitle}</p>
-              <Button className="mt-4 bg-black hover:bg-gray-800 text-white" onClick={() => user ? handlemycart(product?._id) : router.push("/user_login")}>Add Cart</Button>
+              <Button className="mt-4 bg-black hover:bg-gray-800 text-white" onClick={() => user ? handleAddToCart(product?._id) : router.push("/user_login")}>Add Cart</Button>
             </div>
           </div>
         ))}

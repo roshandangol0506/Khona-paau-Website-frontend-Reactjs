@@ -2,36 +2,37 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Minus, Plus } from "lucide-react";
 
-const NumberInput = ({ baseAmount, onTotalChange }) => {
-  const [value, setValue] = useState(1);
-  
+const NumberInput = ({ baseAmount, onTotalChange, initialQuantity = 1 }) => {
+  const [value, setValue] = useState(initialQuantity);
 
   const handleValueChange = (newValue) => {
     const total = baseAmount * newValue;
     setValue(newValue);
-    onTotalChange(total, newValue); 
+    onTotalChange(total, newValue);
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center space-x-2">
-        <Button variant="outline" onClick={() => handleValueChange(Math.max(1, value - 1))}>
-          -
-        </Button>
-        <Input
-          type="number"
-          className="w-16 text-center"
-          value={value}
-          onChange={(e) => handleValueChange(Number(e.target.value))}
-        />
-        <Button variant="outline" onClick={() => handleValueChange(value + 1)}>
-          +
-        </Button>
+    <div className="flex items-center space-x-4">
+      <div className="flex items-center border rounded">
+        <button
+          className="px-3 py-1 border-r"
+          onClick={() => handleValueChange(Math.max(1, value - 1))}
+        >
+          <Minus className="h-4 w-4" />
+        </button>
+        <span className="px-4 py-1">{value}</span>
+        <button
+          className="px-3 py-1 border-l"
+          onClick={() => handleValueChange(value + 1)}
+        >
+          <Plus className="h-4 w-4" />
+        </button>
       </div>
-
-      <Input type="number" className="w-24 text-center bg-gray-100" value={baseAmount * value} readOnly />
-      <Button >Delete</Button>
+      <div className="text-right font-medium">
+        ${(baseAmount * value).toFixed(2)}
+      </div>
     </div>
   );
 };

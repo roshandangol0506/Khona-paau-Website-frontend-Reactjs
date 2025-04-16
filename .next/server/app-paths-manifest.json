@@ -1,5 +1,12 @@
 {
+  "/dashboard/page": "app/dashboard/page.js",
+  "/login/page": "app/login/page.js",
   "/page": "app/page.js",
-  "/v0/page": "app/v0/page.js",
-  "/v0_mycart/page": "app/v0_mycart/page.js"
+  "/dashboard/products/page": "app/dashboard/products/page.js",
+  "/dashboard/team/page": "app/dashboard/team/page.js",
+  "/dashboard/team/edit/[id]/page": "app/dashboard/team/edit/[id]/page.js",
+  "/dashboard/reviews/page": "app/dashboard/reviews/page.js",
+  "/dashboard/reviews/edit/[id]/page": "app/dashboard/reviews/edit/[id]/page.js",
+  "/dashboard/reviews/add/page": "app/dashboard/reviews/add/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
 }

@@ -1,0 +1,11 @@
+(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push([
+    "static/chunks/src_app_checkout_page_318fbf.js",
+    {},
+]);
+(globalThis.TURBOPACK_CHUNK_LISTS = globalThis.TURBOPACK_CHUNK_LISTS || []).push({
+  "path": "static/chunks/src_app_checkout_page_318fbf.js",
+  "chunks": [
+    "static/chunks/src_01b684._.js"
+  ],
+  "source": "dynamic"
+});

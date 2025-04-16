@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-const Checkout = ({ mycart, setmycart, selectedItems, itemQuantities, location, phoneno }) => {
+import { useCart } from "@/context/Cart_context";
+
+const Checkout = ({
+  id,
+  mycart,
+  setmycart,
+  selectedItems,
+  itemQuantities,
+  location,
+  phoneno,
+}) => {
+  const { fetchMycart } = useCart();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
@@ -11,7 +22,7 @@ const Checkout = ({ mycart, setmycart, selectedItems, itemQuantities, location, 
     }
 
     if (!location || !phoneno) {
-      setError("Please fill location and phoneno");
+      setError("Please fill location and phone number");
       return;
     }
 
@@ -20,7 +31,7 @@ const Checkout = ({ mycart, setmycart, selectedItems, itemQuantities, location, 
       .map((items) => ({
         cart_id: items._id,
         quantity: itemQuantities[items.service_id._id] || 1,
-        totalPrice: selectedItems[items.service_id._id], 
+        totalPrice: selectedItems[items.service_id._id],
       }));
 
     const payload = {
@@ -51,20 +62,20 @@ const Checkout = ({ mycart, setmycart, selectedItems, itemQuantities, location, 
       setSuccess("Successfully uploaded!");
       setError(null);
 
-      // ✅ Update mycart state to remove deleted items
-      const deletedCartIds = selectedData.map((item) => item.cart_id);
-      setmycart((prevCart) => prevCart.filter((item) => !deletedCartIds.includes(item._id)));
-      
+      // Update mycart state to remove deleted items
+      fetchMycart();
     } catch (error) {
-      setError(error.message);
+      setError("Error from catch: " + error.message);
     }
   };
 
   return (
     <div>
-      <Button onClick={handleUploadCheckout}>Checkout</Button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      <Button id={id} onClick={handleUploadCheckout} className="hidden">
+        Checkout
+      </Button>
+      {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+      {success && <p className="text-green-500 mt-2 text-sm">{success}</p>}
     </div>
   );
 };

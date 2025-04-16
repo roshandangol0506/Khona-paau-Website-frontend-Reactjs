@@ -9,12 +9,17 @@ __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$postService$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/services/postService.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 "use client";
 ;
 ;
+;
+;
 const page = ()=>{
     const [name, setName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [subtitle, setSubtitle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [amount, setAmount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
     const [description, setDescription] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
@@ -22,6 +27,27 @@ const page = ()=>{
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [success, setSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [products, setproducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        fetch("http://localhost:8001/api/checkAuth", {
+            method: "GET",
+            credentials: "include"
+        }).then((res)=>res.json()).then((data)=>{
+            if (!data.isAuthenticated) {
+                router.push("/login");
+            } else {
+                setUser({
+                    userId: data.userId,
+                    username: data.username,
+                    email: data.email
+                });
+                setIsLoading(false);
+            }
+        });
+    }, [
+        router
+    ]);
     const handleUploadProduct = async ()=>{
         if (!name || !subtitle || !amount || !description || !photo) {
             setError("All fields are required");
@@ -44,9 +70,79 @@ const page = ()=>{
             setError("Failed to upload product", error);
         }
     };
+    const handleDisable = async (id)=>{
+        try {
+            const response = await fetch("http://localhost:8001/disableitem", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id
+                })
+            });
+            if (!response.ok) {
+                throw new Error("Failed to disable product");
+            }
+            // Instantly update the local state
+            setproducts((prevProducts)=>prevProducts.map((product)=>product._id === id ? {
+                        ...product,
+                        visible: "off"
+                    } : product));
+            setSuccess("Product Disabled");
+        } catch (error) {
+            setError("Failed to disable product");
+        }
+    };
+    const handleEnable = async (id)=>{
+        try {
+            const response = await fetch("http://localhost:8001/enableitem", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id
+                })
+            });
+            if (!response.ok) {
+                throw new Error("Failed to enable product");
+            }
+            setproducts((prevProducts)=>prevProducts.map((product)=>product._id === id ? {
+                        ...product,
+                        visible: "on"
+                    } : product));
+            setSuccess("Product Enabled");
+        } catch (error) {
+            setError("Failed to enable product");
+        }
+    };
+    const handlebestSelling = async (id)=>{
+        try {
+            const response = await fetch(`http://localhost:8001/bestselling/${id}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            if (!response.ok) {
+                throw new Error("Failed to enable product");
+            }
+            setproducts((prevProducts)=>prevProducts.map((product)=>product._id === id ? {
+                        ...product,
+                        best_selling: product.best_selling === "true" ? "false" : "true"
+                    } : product));
+            setSuccess("Best Selling updated");
+        } catch (error) {
+            setError("Failed to update Best Selling");
+        }
+    };
     const fetchProduct = async ()=>{
         try {
-            const response = await postService.getProducts();
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$postService$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].getallProducts();
             setproducts(response.data.data);
             setError(null);
         } catch (error) {
@@ -71,7 +167,7 @@ const page = ()=>{
                 onChange: (e)=>setName(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 67,
+                lineNumber: 173,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -81,7 +177,7 @@ const page = ()=>{
                 onChange: (e)=>setSubtitle(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 73,
+                lineNumber: 179,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -91,7 +187,7 @@ const page = ()=>{
                 onChange: (e)=>setDescription(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 79,
+                lineNumber: 185,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -101,7 +197,7 @@ const page = ()=>{
                 onChange: (e)=>setAmount(e.target.value)
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 85,
+                lineNumber: 191,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -110,7 +206,7 @@ const page = ()=>{
                 onChange: (e)=>setPhoto(e.target.files[0])
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 91,
+                lineNumber: 197,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -118,7 +214,7 @@ const page = ()=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 96,
+                lineNumber: 202,
                 columnNumber: 7
             }, this),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -128,7 +224,7 @@ const page = ()=>{
                 children: error
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 97,
+                lineNumber: 203,
                 columnNumber: 17
             }, this),
             success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -138,12 +234,13 @@ const page = ()=>{
                 children: success
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 98,
+                lineNumber: 204,
                 columnNumber: 19
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 children: products.map((items, id)=>{
                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex flex-col gap-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: `http://localhost:8001/items/${items.photo}`,
@@ -151,29 +248,65 @@ const page = ()=>{
                                 className: "h-24 w-24 object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/uploadproducts/page.js",
-                                lineNumber: 104,
+                                lineNumber: 210,
                                 columnNumber: 15
                             }, this),
                             items.name,
                             items.subtitle,
                             items.amount,
-                            items.visable
+                            items.visible,
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: items.visible === "on" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>handleDisable(items._id),
+                                    children: "Disable"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/uploadproducts/page.js",
+                                    lineNumber: 221,
+                                    columnNumber: 19
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>handleEnable(items._id),
+                                    children: "Enable"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/uploadproducts/page.js",
+                                    lineNumber: 225,
+                                    columnNumber: 19
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/uploadproducts/page.js",
+                                lineNumber: 219,
+                                columnNumber: 15
+                            }, this),
+                            items.best_selling,
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>handlebestSelling(items._id),
+                                    children: "Best Selling"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/uploadproducts/page.js",
+                                    lineNumber: 232,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/uploadproducts/page.js",
+                                lineNumber: 231,
+                                columnNumber: 15
+                            }, this)
                         ]
-                    }, void 0, true, {
+                    }, id, true, {
                         fileName: "[project]/src/app/uploadproducts/page.js",
-                        lineNumber: 103,
+                        lineNumber: 209,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/app/uploadproducts/page.js",
-                lineNumber: 100,
+                lineNumber: 206,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/uploadproducts/page.js",
-        lineNumber: 66,
+        lineNumber: 172,
         columnNumber: 5
     }, this);
 };

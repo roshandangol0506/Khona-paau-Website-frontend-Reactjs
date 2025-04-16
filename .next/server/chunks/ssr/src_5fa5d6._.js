@@ -323,13 +323,32 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$Cart_conte
 ;
 ;
 const MyCart = ()=>{
-    const { mycart, setmycart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$Cart_context$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCart"])(); // Get cart data
+    const { mycart, setmycart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$Cart_context$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCart"])();
     const [selectedItems, setSelectedItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
     const [itemQuantities, setItemQuantities] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [location, setlocation] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [phoneno, setphoneno] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [success, setSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        fetch("http://localhost:8001/api/checkAuth", {
+            method: "GET",
+            credentials: "include"
+        }).then((res)=>res.json()).then((data)=>{
+            if (data.isAuthenticated) {
+                setUser({
+                    id: data.userId,
+                    username: data.username,
+                    email: data.email,
+                    profile: data.profile ? data.profile : null
+                });
+                setIsLoading(false);
+            }
+        });
+    }, [
+        router
+    ]);
     const handleCheckboxChange = (serviceId, baseAmount)=>(event)=>{
             setSelectedItems((prev)=>{
                 const newSelectedItems = {
@@ -363,8 +382,8 @@ const MyCart = ()=>{
             return prev;
         });
     };
-    const handleDeletefromCart = async (serviceId)=>{
-        if (!serviceId) {
+    const handleDeletefromCart = async (serviceId, userId)=>{
+        if (!serviceId || !userId) {
             setError("No items are selected");
             return;
         }
@@ -376,7 +395,8 @@ const MyCart = ()=>{
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    serviceId
+                    serviceId,
+                    userId
                 })
             });
             const data = await response.json();
@@ -397,21 +417,8 @@ const MyCart = ()=>{
                 children: "My Cart"
             }, void 0, false, {
                 fileName: "[project]/src/components/V0_My_Cart.jsx",
-                lineNumber: 79,
+                lineNumber: 99,
                 columnNumber: 7
-            }, this),
-            mycart?.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                children: "cha"
-            }, void 0, false, {
-                fileName: "[project]/src/components/V0_My_Cart.jsx",
-                lineNumber: 80,
-                columnNumber: 29
-            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                children: "Khali cha"
-            }, void 0, false, {
-                fileName: "[project]/src/components/V0_My_Cart.jsx",
-                lineNumber: 80,
-                columnNumber: 41
             }, this),
             mycart?.map((items, id)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex items-center space-x-4",
@@ -422,7 +429,7 @@ const MyCart = ()=>{
                             className: "h-24 w-24 object-cover"
                         }, void 0, false, {
                             fileName: "[project]/src/components/V0_My_Cart.jsx",
-                            lineNumber: 83,
+                            lineNumber: 102,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -431,7 +438,7 @@ const MyCart = ()=>{
                                     children: items.service_id.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/V0_My_Cart.jsx",
-                                    lineNumber: 89,
+                                    lineNumber: 108,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -441,7 +448,7 @@ const MyCart = ()=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/V0_My_Cart.jsx",
-                                    lineNumber: 90,
+                                    lineNumber: 109,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Numberinput$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -449,21 +456,21 @@ const MyCart = ()=>{
                                     onTotalChange: (total, quantity)=>updateTotalForItem(items.service_id._id, total, quantity)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/V0_My_Cart.jsx",
-                                    lineNumber: 92,
+                                    lineNumber: 111,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                                    onClick: ()=>handleDeletefromCart(items.service_id._id),
+                                    onClick: ()=>handleDeletefromCart(items.service_id._id, user.id),
                                     children: "Delete"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/V0_My_Cart.jsx",
-                                    lineNumber: 96,
+                                    lineNumber: 115,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/V0_My_Cart.jsx",
-                            lineNumber: 88,
+                            lineNumber: 107,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -472,13 +479,13 @@ const MyCart = ()=>{
                             onChange: handleCheckboxChange(items.service_id._id, items.service_id.amount)
                         }, void 0, false, {
                             fileName: "[project]/src/components/V0_My_Cart.jsx",
-                            lineNumber: 99,
+                            lineNumber: 118,
                             columnNumber: 11
                         }, this)
                     ]
                 }, id, true, {
                     fileName: "[project]/src/components/V0_My_Cart.jsx",
-                    lineNumber: 82,
+                    lineNumber: 101,
                     columnNumber: 9
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -488,7 +495,7 @@ const MyCart = ()=>{
                 readOnly: true
             }, void 0, false, {
                 fileName: "[project]/src/components/V0_My_Cart.jsx",
-                lineNumber: 107,
+                lineNumber: 126,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Checkout_button$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -500,7 +507,7 @@ const MyCart = ()=>{
                 phoneno: phoneno
             }, void 0, false, {
                 fileName: "[project]/src/components/V0_My_Cart.jsx",
-                lineNumber: 114,
+                lineNumber: 133,
                 columnNumber: 7
             }, this),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -510,13 +517,13 @@ const MyCart = ()=>{
                 children: error
             }, void 0, false, {
                 fileName: "[project]/src/components/V0_My_Cart.jsx",
-                lineNumber: 115,
+                lineNumber: 134,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/V0_My_Cart.jsx",
-        lineNumber: 78,
+        lineNumber: 98,
         columnNumber: 5
     }, this);
 };

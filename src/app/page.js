@@ -9,7 +9,6 @@ import Testimonials from "@/components/V0_testominals";
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <Navbar />
       <section id="home" className="py-16 px-4 max-w-7xl mx-auto">
         <h1 className="text-5xl font-serif text-center mb-6">
           Discover Authentic Khokana Flavors

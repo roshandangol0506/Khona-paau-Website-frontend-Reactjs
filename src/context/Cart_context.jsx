@@ -1,49 +1,43 @@
-"use client"
+"use client";
 
 import postService from "@/services/postService";
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect } from "react";
 
-
-const CartContext = createContext(undefined)
+const CartContext = createContext(undefined);
 
 export function CartProvider({ children }) {
-    const [mycart, setmycart] = useState([]);
-    const cartCount = mycart.length;
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false)
-  
-    useEffect(() => {
-        const fetchMycart = async () => {
-          try {
-            const response = await postService.getMyCarts();
-            setmycart(response.data.mycart);
-            setIsLoaded(true)
-            setError(null);
-          } catch (error) {
-            setError("No Cart items found.");
-          }
-        };
-        fetchMycart();
-      }, []);
+  const [mycart, setmycart] = useState([]);
+  const cartCount = mycart.length;
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const fetchMycart = async () => {
+    try {
+      const response = await postService.getMyCarts();
+      setmycart(response.data.mycart || []);
+    } catch (error) {
+      setError("No Cart items found.");
+    } finally {
+      setIsLoaded(true);
+    }
+  };
+  useEffect(() => {
+    fetchMycart();
+  }, []);
 
   return (
     <CartContext.Provider
-    value={{
-        mycart, cartCount, setmycart, isLoaded,
-      }}
+      value={{ mycart, cartCount, setmycart, fetchMycart, isLoaded, error }}
     >
       {children}
     </CartContext.Provider>
-  )
+  );
 }
 
 export function useCart() {
-  const context = useContext(CartContext)
-
-  if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider")
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error("useCart must be used within a CartProvider");
   }
-
-  return context
+  return context;
 }
-

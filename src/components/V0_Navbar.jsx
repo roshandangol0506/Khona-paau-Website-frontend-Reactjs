@@ -1,27 +1,61 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { User, ShoppingCart, LogOut } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ThemeToggle } from "./V0_Theme_Toggle"
 import postService from "@/services/postService"
 import { useCart } from "@/context/Cart_context"
+import { usePathname, useRouter } from "next/navigation"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const [cartitems, setcartitems]= useState(0);
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
 
   const { cartCount, isLoaded } = useCart()
 
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id)
+  const pathname = usePathname();   
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
+
+  const handleNavigation = async (sectionId) => {
+    if (pathname === "/") {
+      scrollToSection(sectionId);
+    } else {
+      router.push("/")
+      scrollToSection(sectionId);
+      
+    }
+  };
+  
+    useEffect(() => {
+      fetch("http://localhost:8001/api/checkAuth", {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.isAuthenticated) {
+            setUser({
+              userId: data.userId,
+              username: data.username,
+              email: data.email,
+              profile: data.profile ? data.profile : null,
+            });
+            setIsLoading(false);
+          }
+        });
+    }, [router]);
 
   const fetchuserlogout = async () => {
     try {
@@ -39,7 +73,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+    <header className="sticky top-0 pb-3 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6 md:gap-10">
           <Link href="/" className="font-serif text-2xl font-bold tracking-tight">
@@ -47,13 +81,13 @@ export default function Navbar() {
           </Link>
           <nav className="hidden md:flex gap-6">
             <button
-              onClick={() => scrollToSection("home")}
+              onClick={() => handleNavigation("home")}
               className="text-sm font-medium transition-colors hover:text-primary"
             >
               HOME
             </button>
             <button
-              onClick={() => scrollToSection("about")}
+              onClick={() => handleNavigation("about")}
               className="text-sm font-medium transition-colors hover:text-primary"
             >
               ABOUT US
@@ -91,12 +125,19 @@ export default function Navbar() {
           <Link href="/v0_mycart" className="text-sm font-medium transition-colors hover:text-primary">
           CART ({isLoaded ? cartCount : 0})
           </Link>
+          {user ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="p-2 rounded-full hover:bg-muted">
-                <User className="h-5 w-5" />
-                <span className="sr-only">User menu</span>
-              </button>
+            <button className="p-2 hover:bg-muted flex flex-col items-center">
+              {user.profile && (
+                <img 
+                  src={`http://localhost:8001/gmailprofile/${user.profile}`} 
+                  alt="User Logo" 
+                  className="rounded-full h-7 w-7"
+                />
+              )}
+              <p className="text-black text-sm font-medium mt-1">{user.username}</p>
+            </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
@@ -113,6 +154,7 @@ export default function Navbar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          ):(<Link href="/user_login" className="text-black">Login</Link>)}
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

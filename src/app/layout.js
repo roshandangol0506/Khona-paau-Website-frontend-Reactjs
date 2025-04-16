@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/V0_theme_provider";
+import { Toaster } from "sonner";
+import Navbar from "@/components/V0_Navbar";
 import { CartProvider } from "@/context/Cart_context";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +22,11 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            <Navbar />
+            {children}
+          </CartProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
