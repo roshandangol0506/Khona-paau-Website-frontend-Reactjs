@@ -11,11 +11,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { useDashboard } from "@/context/dashboard-context";
 
 export default function TeamPage() {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const { updateStats } = useDashboard();
 
   useEffect(() => {
     const fetchTeam = async () => {
@@ -30,7 +32,11 @@ export default function TeamPage() {
         }
 
         const data = await response.json();
-        setTeam(data.data || []);
+        const teamList = data.data || [];
+        setTeam(teamList);
+
+        // Update dashboard stats with team count
+        updateStats({ team: teamList.length });
       } catch (error) {
         console.error("Error fetching team:", error);
       } finally {
@@ -60,7 +66,11 @@ export default function TeamPage() {
       }
 
       // Remove from local state
-      setTeam(team.filter((member) => member._id !== memberId));
+      const updatedTeam = team.filter((member) => member._id !== memberId);
+      setTeam(updatedTeam);
+
+      // Update dashboard stats with new team count
+      updateStats({ team: updatedTeam.length });
     } catch (error) {
       console.error("Error deleting team member:", error);
     }

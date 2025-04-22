@@ -28,11 +28,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { useDashboard } from "@/context/dashboard-context";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const { updateStats } = useDashboard();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -47,7 +49,10 @@ export default function ProductsPage() {
         }
 
         const data = await response.json();
-        setProducts(data.data || []);
+        const productList = data.data || [];
+        setProducts(productList);
+
+        updateStats({ products: productList.length });
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -137,7 +142,10 @@ export default function ProductsPage() {
       }
 
       // Remove from local state
-      setProducts(products.filter((product) => product._id !== productId));
+      updatedProducts = products.filter((product) => product._id !== productId);
+      setProducts(updatedProducts);
+
+      updateStats({ products: updatedProducts.length });
     } catch (error) {
       console.error("Error deleting product:", error);
     }

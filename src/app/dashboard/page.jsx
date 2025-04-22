@@ -16,33 +16,68 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useDashboard } from "@/context/dashboard-context";
 
 export default function Dashboard() {
-  const [stats, setStats] = useState({
-    products: 0,
-    team: 0,
-    reviews: 0,
-    orders: 0,
-    revenue: 0,
-  });
+  const { stats, updateStats } = useDashboard();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // In a real app, you would fetch this data from your API
-    // For now, we'll simulate it with a timeout
-    const timer = setTimeout(() => {
-      setStats({
-        products: 24,
-        team: 6,
-        reviews: 18,
-        orders: 156,
-        revenue: 12580,
-      });
-      setLoading(false);
-    }, 1000);
+    const fetchStats = async () => {
+      try {
+        const [
+          productsResponse,
+          teamResponse,
+          reviewsResponse,
+          ordersResponse,
+        ] = await Promise.all([
+          fetch("http://localhost:8001/servicelength", {
+            method: "GET",
+            credentials: "include",
+          }),
+          fetch("http://localhost:8001/teamlength", {
+            method: "GET",
+            credentials: "include",
+          }),
+          fetch("http://localhost:8001/reviewlength", {
+            method: "GET",
+            credentials: "include",
+          }),
+          fetch("http://localhost:8001/checkoutlength", {
+            method: "GET",
+            credentials: "include",
+          }),
+        ]);
 
-    return () => clearTimeout(timer);
-  }, []);
+        const productsData = productsResponse.ok
+          ? await productsResponse.json()
+          : { data: 0 };
+        const teamData = teamResponse.ok
+          ? await teamResponse.json()
+          : { data: 0 };
+        const reviewsData = reviewsResponse.ok
+          ? await reviewsResponse.json()
+          : { data: 0 };
+        const ordersData = ordersResponse.ok
+          ? await ordersResponse.json()
+          : { data: 0 };
+
+        updateStats({
+          products: productsData.data || 0,
+          team: teamData.data || 0,
+          reviews: reviewsData.data || 0,
+          orders: ordersData.data || 0,
+          revenue: 0, // or calculate from ordersData if needed
+        });
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []); // ⛔ NO `updateStats` in dependency array
 
   const cards = [
     {
@@ -79,7 +114,7 @@ export default function Dashboard() {
     },
     {
       title: "Revenue",
-      value: `$${stats.revenue.toLocaleString()}`,
+      value: 0,
       description: "Total revenue this month",
       icon: DollarSign,
       link: "/dashboard/revenue",

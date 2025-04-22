@@ -13,11 +13,13 @@ import {
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Dashboard from "../page";
+import { useDashboard } from "@/context/dashboard-context";
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const { updateStats } = useDashboard();
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -32,7 +34,10 @@ export default function ReviewsPage() {
         }
 
         const data = await response.json();
-        setReviews(data.data || []);
+        const reviewList = data.data || [];
+        setReviews(reviewList);
+
+        updateStats({ reviews: reviewList.length });
       } catch (error) {
         console.error("Error fetching reviews:", error);
       } finally {
@@ -62,7 +67,10 @@ export default function ReviewsPage() {
       }
 
       // Remove from local state
-      setReviews(reviews.filter((review) => review._id !== reviewId));
+      const updatedReview = reviews.filter((review) => review._id !== reviewId);
+      setReviews(updatedReview);
+
+      updateStats({ reviews: updatedReview.length });
     } catch (error) {
       console.error("Error deleting review:", error);
     }
