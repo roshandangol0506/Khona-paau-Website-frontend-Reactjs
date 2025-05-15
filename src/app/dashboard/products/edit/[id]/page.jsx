@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import Link from "next/link";
 
 export default function EditProductPage() {
   const router = useRouter();
+  const fileInputRef = useRef(null);
   const params = useParams();
   const { id } = params;
 
@@ -120,7 +121,7 @@ export default function EditProductPage() {
       }
 
       // Send to API
-      const response = await fetch(`http://localhost:8001/edititem/${id}`, {
+      const response = await fetch(`http://localhost:8001/edititems/${id}`, {
         method: "PUT",
         credentials: "include",
         body: productData,
@@ -233,13 +234,7 @@ export default function EditProductPage() {
                       variant="outline"
                       size="sm"
                       className="mt-4"
-                      onClick={() => {
-                        setPhoto(null);
-                        // Only clear preview if it's not from the server
-                        if (!photoPreview.includes("http://localhost:8001")) {
-                          setPhotoPreview(null);
-                        }
-                      }}
+                      onClick={() => fileInputRef.current.click()}
                     >
                       {photo ? "Remove New Image" : "Change Image"}
                     </Button>
@@ -250,14 +245,6 @@ export default function EditProductPage() {
                     <p className="mt-2 text-sm text-muted-foreground">
                       Drag and drop an image, or click to browse
                     </p>
-                    <Input
-                      id="photo"
-                      name="photo"
-                      type="file"
-                      accept="image/*"
-                      onChange={handlePhotoChange}
-                      className="hidden"
-                    />
                     <Button
                       type="button"
                       variant="outline"
@@ -268,6 +255,16 @@ export default function EditProductPage() {
                     </Button>
                   </div>
                 )}
+                {/* Hidden input (always available) */}
+                <Input
+                  ref={fileInputRef}
+                  id="photo"
+                  name="photo"
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoChange} // 👈 your existing logic
+                  className="hidden"
+                />
               </div>
             </div>
 

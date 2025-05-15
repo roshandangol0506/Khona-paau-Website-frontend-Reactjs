@@ -36,30 +36,30 @@ export default function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const { updateStats } = useDashboard();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://localhost:8001/allproducts", {
-          method: "GET",
-          credentials: "include",
-        });
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:8001/allproducts", {
+        method: "GET",
+        credentials: "include",
+      });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const productList = data.data || [];
-        setProducts(productList);
-
-        updateStats({ products: productList.length });
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
+      const data = await response.json();
+      const productList = data.data || [];
+      setProducts(productList);
+
+      updateStats({ products: productList.length });
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchProducts();
   }, []);
 
@@ -142,7 +142,9 @@ export default function ProductsPage() {
       }
 
       // Remove from local state
-      updatedProducts = products.filter((product) => product._id !== productId);
+      const updatedProducts = products.filter(
+        (product) => product._id !== productId
+      );
       setProducts(updatedProducts);
 
       updateStats({ products: updatedProducts.length });

@@ -139,33 +139,40 @@ export default function OrdersPage() {
   // Function to handle PDF export
   const handleExportPDF = () => {
     const doc = new jsPDF();
-    
+
     // Add title
     doc.setFontSize(16);
     doc.text("Orders Report", 14, 15);
     doc.setFontSize(10);
     doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 22);
-    
+
     // Create table structure for PDF
-    const tableColumn = ["Order", "Customer", "Date", "Status", "Quantity", "Total"];
-    const tableRows = filteredOrders.map(order => [
-      order.service_id.name,
+    const tableColumn = [
+      "Order",
+      "Customer",
+      "Date",
+      "Status",
+      "Quantity",
+      "Total",
+    ];
+    const tableRows = filteredOrders.map((order) => [
+      order.service_id?.name,
       order.user_id?.name || "Unknown",
       formatDate(order.added_at),
       order.status,
       order.quantity,
-      `Rs ${(order.quantity * order.service_id.amount).toFixed(2)}`
+      `Rs ${(order.quantity * order.service_id?.amount).toFixed(2)}`,
     ]);
-    
+
     // Add the table to the PDF
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 30,
       styles: { fontSize: 8, cellPadding: 2 },
-      headStyles: { fillColor: [66, 66, 66] }
+      headStyles: { fillColor: [66, 66, 66] },
     });
-    
+
     // Save the PDF
     doc.save("orders-report.pdf");
   };
@@ -181,7 +188,7 @@ export default function OrdersPage() {
     },
     onAfterPrint: () => {
       console.log("Print completed");
-    }
+    },
   });
 
   return (
@@ -258,7 +265,7 @@ export default function OrdersPage() {
               {filteredOrders.map((order) => (
                 <TableRow key={order._id}>
                   <TableCell className="font-medium">
-                    {order.service_id.name}
+                    {order.service_id?.name}
                   </TableCell>
                   <TableCell>
                     <div>
@@ -268,12 +275,8 @@ export default function OrdersPage() {
                       </p>
                     </div>
                   </TableCell>
-                  <TableCell className="text-right">
-                    {order.user_id.location}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {order.user_id.phoneno}
-                  </TableCell>
+                  <TableCell className="text-right">{order.location}</TableCell>
+                  <TableCell className="text-right">{order.phoneno}</TableCell>
                   <TableCell className="hidden md:table-cell">
                     {formatDate(order.added_at)}
                   </TableCell>
@@ -285,7 +288,7 @@ export default function OrdersPage() {
                   </TableCell>
                   <TableCell className="text-right">{order.quantity}</TableCell>
                   <TableCell className="text-right">
-                    Rs {(order.quantity * order.service_id.amount).toFixed(2)}
+                    Rs {(order.quantity * order.service_id?.amount).toFixed(2)}
                   </TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>

@@ -121,11 +121,11 @@ export default function Dashboard() {
       color: "bg-red-50 text-red-700",
     },
     {
-      title: "Growth",
+      title: "Category",
       value: "24%",
-      description: "Increase from last month",
+      description: "Varieties of Flavors",
       icon: TrendingUp,
-      link: "/dashboard/analytics",
+      link: "/dashboard/category",
       color: "bg-indigo-50 text-indigo-700",
     },
   ];

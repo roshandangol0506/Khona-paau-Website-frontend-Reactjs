@@ -19,40 +19,40 @@ import { DashboardProvider } from "@/context/dashboard-context";
 
 export default function DashboardLayout({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); //first true grnu prcha
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await fetch("http://localhost:8001/api/checkAuth", {
-          method: "GET",
-          credentials: "include",
-        });
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:8001/api/checkAuth", {
+  //         method: "GET",
+  //         credentials: "include",
+  //       });
 
-        const data = await response.json();
+  //       const data = await response.json();
 
-        if (data.isAuthenticated) {
-          setUser({
-            id: data.userId,
-            username: data.username,
-            email: data.email,
-            profile: data.profile || null,
-          });
-        } else {
-          // Redirect to login if not authenticated
-          window.location.href = "/login";
-        }
-      } catch (error) {
-        console.error("Authentication check failed:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       if (data.isAuthenticated) {
+  //         setUser({
+  //           id: data.userId,
+  //           username: data.username,
+  //           email: data.email,
+  //           profile: data.profile || null,
+  //         });
+  //       } else {
+  //         // Redirect to login if not authenticated
+  //         window.location.href = "/login";
+  //       }
+  //     } catch (error) {
+  //       console.error("Authentication check failed:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    checkAuth();
-  }, []);
+  //   checkAuth();
+  // }, []);
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },

@@ -92,36 +92,36 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 ;
 function DashboardLayout({ children }) {
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false); //first true grnu prcha
     const [sidebarOpen, setSidebarOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["usePathname"])();
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        const checkAuth = async ()=>{
-            try {
-                const response = await fetch("http://localhost:8001/api/checkAuth", {
-                    method: "GET",
-                    credentials: "include"
-                });
-                const data = await response.json();
-                if (data.isAuthenticated) {
-                    setUser({
-                        id: data.userId,
-                        username: data.username,
-                        email: data.email,
-                        profile: data.profile || null
-                    });
-                } else {
-                    // Redirect to login if not authenticated
-                    window.location.href = "/login";
-                }
-            } catch (error) {
-                console.error("Authentication check failed:", error);
-            } finally{
-                setLoading(false);
-            }
-        };
-        checkAuth();
-    }, []);
+    // useEffect(() => {
+    //   const checkAuth = async () => {
+    //     try {
+    //       const response = await fetch("http://localhost:8001/api/checkAuth", {
+    //         method: "GET",
+    //         credentials: "include",
+    //       });
+    //       const data = await response.json();
+    //       if (data.isAuthenticated) {
+    //         setUser({
+    //           id: data.userId,
+    //           username: data.username,
+    //           email: data.email,
+    //           profile: data.profile || null,
+    //         });
+    //       } else {
+    //         // Redirect to login if not authenticated
+    //         window.location.href = "/login";
+    //       }
+    //     } catch (error) {
+    //       console.error("Authentication check failed:", error);
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
+    //   checkAuth();
+    // }, []);
     const navigation = [
         {
             name: "Dashboard",

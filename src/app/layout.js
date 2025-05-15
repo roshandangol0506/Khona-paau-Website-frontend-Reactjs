@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/V0_theme_provider";
 import { Toaster } from "sonner";
 import Navbar from "@/components/V0_Navbar";
 import { CartProvider } from "@/context/Cart_context";
+import { GeneralSettingProvider } from "@/context/general_setting";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,10 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           <CartProvider>
-            <Navbar />
-            {children}
+            <GeneralSettingProvider>
+              <Navbar />
+              {children}
+            </GeneralSettingProvider>
           </CartProvider>
           <Toaster />
         </ThemeProvider>
